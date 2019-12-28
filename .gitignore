@@ -370,7 +370,9 @@ x64/
 
 *.tlog
 
-*.bat
+#Premake stuff
+premake5.bat
+premake.bat
 
 #Mac/XCode
 .DS_Store
