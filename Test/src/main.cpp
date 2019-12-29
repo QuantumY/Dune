@@ -9,5 +9,7 @@
 int main(int argc, char* args[])
 {
 	Dune::Application app("My App");
+	Dune::Window window("My Window", 1000, 800);
+	SDL_Delay(1000);
 	return 0;
 }

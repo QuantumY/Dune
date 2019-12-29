@@ -6,22 +6,25 @@
 #include <stdint.h>
 #include <cstdlib>
 
-#define DUNE_APPSTATUS_NONE 0x00
-#define DUNE_APPSTATUS_QUIT 0x01
-
 namespace Dune
 {
+	enum AppStatus
+	{
+		None = 0,		//none
+		Quit = 0x01		//has already been quit
+	};
+
 	class Application
 	{
 	private:
-		std::string name;
-		uint32_t status;
+		std::string m_name;
+		uint32_t m_status;
 
 		void Quit();
 	public:
 		//
-		//Create the application. Arguments: application name
-		Application(std::string);
+		//Create the application
+		Application(std::string name);
 		~Application();
 	};
 }

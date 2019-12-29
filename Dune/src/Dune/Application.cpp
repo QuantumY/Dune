@@ -3,8 +3,8 @@
 
 namespace Dune
 {
-	Application::Application(std::string app_name)
-		:name(app_name), status(DUNE_APPSTATUS_NONE)
+	Application::Application(std::string name)
+		:m_name(name), m_status(AppStatus::None)
 	{
 		//Don't use SDL's main function
 		#ifdef SDL_MAIN_HANDLED
@@ -13,29 +13,33 @@ namespace Dune
 
 		if (SDL_Init(SDL_INIT_EVERYTHING) != 0)
 		{
-			DUNE_BASIC_FATAL("SDL2 could not initialize properly");
+			DUNE_BASIC_FATAL("SDL could not initialize properly");
 			Quit();
+		}
+		else
+		{
+			DUNE_BASIC_LOG("SDL has been initialized");
 		}
 	}
 
 	Application::~Application()
 	{
-		DUNE_BASIC_LOG("Dune::Application::~Application() has been called");
+		//If app not yet been quit
 		Quit();
 	}
 
 	void Application::Quit()
 	{
-		DUNE_BASIC_LOG("Dune::Application::Quit() has been called");
-		if (status != DUNE_APPSTATUS_QUIT)
+		if ((m_status & AppStatus::Quit) == false)
 		{
 			SDL_Quit();
-			status = DUNE_APPSTATUS_QUIT;
 			DUNE_BASIC_LOG("SDL has been quit");
 		}
-		else
+		else //if this is called, it may be because SDL_Init failed earlier
 		{
 			DUNE_BASIC_WARN("Caling Dune::Application::Quit() more than once is not allowed");
 		}
+
+		m_status |= AppStatus::Quit;
 	}
 }

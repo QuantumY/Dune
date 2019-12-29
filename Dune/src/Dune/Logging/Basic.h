@@ -1,5 +1,5 @@
-#ifndef DUNE_BASIC_H
-#define DUNE_BASIC_H
+#ifndef DUNE_LOGGING_BASIC_H
+#define DUNE_LOGGING_BASIC_H
 
 #include <cstdlib>
 
@@ -36,7 +36,7 @@
 #ifdef DUNE_DEBUG
 	#define DUNE_BASIC_PRINT(color, append, message) printf("%s%s%s\n", color, append, message)
 #elif defined(DUNE_RELEASE)
-	#define DUNE_BASIC_PRINT(color,  append, message)
+	#define DUNE_BASIC_PRINT(color, append, message)
 #endif /* DUNE_DEBUG */
 
 #ifdef DUNE_EXIT_ON_FATAL_ERROR
@@ -56,4 +56,4 @@
 //Log information on the console window in white text
 #define DUNE_BASIC_LOG(x) DUNE_BASIC_PRINT(DUNE_PRINT_WHITE, "[  LOG  ] ", x)
 
-#endif /* DUNE_BASIC_H */
+#endif /* DUNE_LOGGING_BASIC_H */
