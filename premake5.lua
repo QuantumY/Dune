@@ -109,6 +109,16 @@ project "Dune"
     filter "system:linux"
         defines "DUNE_PLATFORM_LINUX"
     
+    filter "action:vs2019"
+        defines 
+        {
+            "DUNE_COMPILER_MSVC",
+            "DUNE_VS2019"
+        }
+    
+    filter "toolset:gcc"
+        defines "DUNE_COMPILER_GCC"
+    
     filter "configurations:Debug"
         defines "DUNE_DEBUG"
         runtime "Debug"

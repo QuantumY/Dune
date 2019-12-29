@@ -37,8 +37,6 @@ namespace Dune
 		Default = Resizable | Shown
 	};
 
-	//
-	//!INCOMPLETE
 	class Window
 	{
 	private:
@@ -47,22 +45,13 @@ namespace Dune
 	public:
 		//
 		//Create the window in the center of the screen
-		Window(std::string title, uint32_t width, uint32_t height);
-		//
-		//Create the window in the center of the screen
-		Window(std::string title, uint32_t width, uint32_t height, uint32_t flags);
-		//
+		Window(std::string title, uint32_t width, uint32_t height, uint32_t flags = WindowFlags::Default);
 		//Create the window
-		Window(std::string title, uint32_t x, uint32_t y, uint32_t width, uint32_t height);
 		//
-		//Create the window
-		Window(std::string title, uint32_t x, uint32_t y, uint32_t width, uint32_t height, uint32_t flags);
+		Window(std::string title, uint32_t x, uint32_t y, uint32_t width, uint32_t height, uint32_t flags = WindowFlags::Default);
 		//
 		//Create the window using a WindowProps object
-		Window(WindowProps props);
-		//
-		//Create the window using a WindowProps object
-		Window(WindowProps props, uint32_t flags);
+		Window(WindowProps props, uint32_t flags = WindowFlags::Default);
 		//
 		//Returns a copy of the WindowProps
 		WindowProps GetWindowProps();

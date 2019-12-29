@@ -6,7 +6,7 @@ namespace Dune
 	Application::Application(std::string name)
 		:m_name(name), m_status(AppStatus::None)
 	{
-		//Don't use SDL's main function
+		//Don't use SDL's main function if SDL_MAIN_HANDLED is defined
 		#ifdef SDL_MAIN_HANDLED
 		SDL_SetMainReady();
 		#endif /* SDL_MAIN_HANDLED */

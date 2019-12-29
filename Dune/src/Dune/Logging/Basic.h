@@ -1,10 +1,10 @@
 #ifndef DUNE_LOGGING_BASIC_H
 #define DUNE_LOGGING_BASIC_H
 
-#ifdef DUNE_PLATFORM_WINDOWS
+#ifdef DUNE_VS2019
 //For __debugbreak()
 #include <intrin.h>
-#endif /* DUNE_PLATFORM_WINDOWS */
+#endif /* DUNE_VS2019 */
 
 #include <cstdlib>
 
@@ -40,29 +40,32 @@
 
 #ifdef DUNE_DEBUG
 	#define DUNE_BASIC_PRINT(color, append, message) printf("%s%s%s\n", color, append, message)
-#elif defined(DUNE_RELEASE)
+	#ifdef DUNE_COMPILER_MSVC
+		#define DUNE_BREAKPOINT() __debugbreak()
+	#elif defined DUNE_COMPILER_GCC
+		#define DUNE_BREAKPOINT() __builtin_trap()
+	#endif /* DUNE_PLATFORM_WINDOWS */
+	#ifdef DUNE_EXIT_ON_FATAL_ERROR
+		//Display a fatal error on the console window in green text and quit Dune
+		#define DUNE_BASIC_FATAL(x) DUNE_BASIC_PRINT(DUNE_PRINT_GREEN, "[ FATAL ]", x); std::exit(-1)
+	#else
+		//Display a fatal error on the console window in green text and make a breakpoint
+		#define DUNE_BASIC_FATAL(x) DUNE_BASIC_PRINT(DUNE_PRINT_GREEN, "[ FATAL ]", x); DUNE_BREAKPOINT()
+	#endif /* DUNE_EXIT_ON_FATAL_ERROR */
+#elif defined DUNE_RELEASE
 	#define DUNE_BASIC_PRINT(color, append, message)
+
+	//Display a fatal error on the console window in green text and make a breakpoint
+	#define DUNE_BASIC_FATAL(x)
 #endif /* DUNE_DEBUG */
 
-#ifdef DUNE_EXIT_ON_FATAL_ERROR
-	//Display a fatal error on the console window in green text and quit Dune
-	#define DUNE_BASIC_FATAL(x) DUNE_BASIC_PRINT(DUNE_PRINT_GREEN, "[ FATAL ]", x); std::exit(-1)
-#else
-	#ifdef DUNE_PLATFORM_WINDOWS
-		//Display a fatal error on the console window in green text and make a breakpoint
-		#define DUNE_BASIC_FATAL(x) DUNE_BASIC_PRINT(DUNE_PRINT_GREEN, "[ FATAL ]", x); __debugbreak()
-	#elif defined ((DUNE_PLATFORM_MAC || DUNE_PLATFORM_LINUX) && DUNE_COMPILER_GCC)
-		#define DUNE_BASIC_FATAL(x) DUNE_BASIC_PRINT(DUNE_PRINT_GREEN, "[ FATAL ]", x); __builtin_trap()
-	#endif /* DUNE_PLATFORM_WINDOWS */
-#endif /* DUNE_EXIT_ON_FATAL_ERROR */
-
-//Display an error on the console window in red text
+//Display an error on the console window in red text (Debug)
 #define DUNE_BASIC_ERROR(x) DUNE_BASIC_PRINT(DUNE_PRINT_RED, "[ ERROR ] ", x)
 
-//Display a warning on the console window in yellow text
+//Display a warning on the console window in yellow text (Debug)
 #define DUNE_BASIC_WARN(x) DUNE_BASIC_PRINT(DUNE_PRINT_YELLOW, "[WARNING] ", x)
 
-//Log information on the console window in white text
+//Log information on the console window in white text (Debug)
 #define DUNE_BASIC_LOG(x) DUNE_BASIC_PRINT(DUNE_PRINT_WHITE, "[  LOG  ] ", x)
 
 #endif /* DUNE_LOGGING_BASIC_H */
