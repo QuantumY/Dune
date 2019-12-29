@@ -14,7 +14,6 @@ namespace Dune
 		if (SDL_Init(SDL_INIT_EVERYTHING) != 0)
 		{
 			DUNE_BASIC_FATAL("SDL could not initialize properly");
-			Quit();
 		}
 		else
 		{
@@ -35,7 +34,7 @@ namespace Dune
 			SDL_Quit();
 			DUNE_BASIC_LOG("SDL has been quit");
 		}
-		else //if this is called, it may be because SDL_Init failed earlier
+		else
 		{
 			DUNE_BASIC_WARN("Caling Dune::Application::Quit() more than once is not allowed");
 		}

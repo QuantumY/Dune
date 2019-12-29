@@ -1,5 +1,6 @@
 --[[
-    Premake file for Premake5 (https://github.com/premake/premake-core)
+    Premake file for Premake5 (https://github.com/premake/premake-core). 
+    This file (and many inside Dune) has been configured only to work with 32-bit.
 --]]
 
 workspace "Dune"
@@ -72,8 +73,7 @@ project "Dune"
     defines
     {
         "DUNE_COMPILE_STATIC",
-        "DUNE_PLATFORM_X64",
-        "DUNE_EXIT_ON_FATAL_ERROR"
+        "DUNE_PLATFORM_X64"
     }
     
     files

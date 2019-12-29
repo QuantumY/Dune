@@ -23,7 +23,7 @@ namespace Dune
 		void Quit();
 	public:
 		//
-		//Create the application
+		//Create the application (with a name)
 		Application(std::string name);
 		~Application();
 	};

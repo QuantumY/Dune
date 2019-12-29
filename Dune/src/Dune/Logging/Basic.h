@@ -1,10 +1,15 @@
 #ifndef DUNE_LOGGING_BASIC_H
 #define DUNE_LOGGING_BASIC_H
 
+#ifdef DUNE_PLATFORM_WINDOWS
+//For __debugbreak()
+#include <intrin.h>
+#endif /* DUNE_PLATFORM_WINDOWS */
+
 #include <cstdlib>
 
 /*
-	Extremely basic macro logging. 
+	Extremely basic console logging with macros. 
 	Log file(s) not yet supported.
 */
 
@@ -43,8 +48,12 @@
 	//Display a fatal error on the console window in green text and quit Dune
 	#define DUNE_BASIC_FATAL(x) DUNE_BASIC_PRINT(DUNE_PRINT_GREEN, "[ FATAL ]", x); std::exit(-1)
 #else
-	//Display a fatal error on the console window in green text but don't quit Dune
-	#define DUNE_BASIC_FATAL(x) DUNE_BASIC_PRINT(DUNE_PRINT_GREEN, "[ FATAL ]", x)
+	#ifdef DUNE_PLATFORM_WINDOWS
+		//Display a fatal error on the console window in green text and make a breakpoint
+		#define DUNE_BASIC_FATAL(x) DUNE_BASIC_PRINT(DUNE_PRINT_GREEN, "[ FATAL ]", x); __debugbreak()
+	#elif defined ((DUNE_PLATFORM_MAC || DUNE_PLATFORM_LINUX) && DUNE_COMPILER_GCC)
+		#define DUNE_BASIC_FATAL(x) DUNE_BASIC_PRINT(DUNE_PRINT_GREEN, "[ FATAL ]", x); __builtin_trap()
+	#endif /* DUNE_PLATFORM_WINDOWS */
 #endif /* DUNE_EXIT_ON_FATAL_ERROR */
 
 //Display an error on the console window in red text

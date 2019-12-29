@@ -1,15 +1,17 @@
-#ifndef DUNE_WINDOW_H
-#define DUNE_WINDOW_H
+#ifndef DUNE_GUI_WINDOW_H
+#define DUNE_GUI_WINDOW_H
 
 #include <SDL.h>
 #include <string>
 
 #include "Dune/Logging/Basic.h"
 
-#define DUNE_WINDOW_CENTERED    SDL_WINDOWPOS_CENTERED
+#define DUNE_WINDOW_CENTERED SDL_WINDOWPOS_CENTERED
 
 namespace Dune
 {
+	//
+	//Data for settings up/storing the data of the window. 
 	struct WindowProps
 	{
 		std::string title;
@@ -35,6 +37,8 @@ namespace Dune
 		Default = Resizable | Shown
 	};
 
+	//
+	//!INCOMPLETE
 	class Window
 	{
 	private:
@@ -66,4 +70,4 @@ namespace Dune
 	};
 }
 
-#endif /* DUNE_WINDOW_H */
+#endif /* DUNE_GUI_WINDOW_H */
