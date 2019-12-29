@@ -29,12 +29,20 @@ project "Test"
 
     includedirs
     {
-        "Dune/src"
+        "Dune/src",
+        "Dependencies/SDL2/include"
+    }
+
+    libdirs
+    {
+        "Dependencies/SDL2/lib/x64/"
     }
 
     links
     {
-        "Dune"
+        "Dune",
+        "SDL2",
+        "SDL2main"
     }
 
     filter "configurations:Debug"
@@ -57,13 +65,32 @@ project "Dune"
 
     defines
     {
-        "DUNE_COMPILE_STATIC"
+        "DUNE_COMPILE_STATIC",
+        "DUNE_PLATFORM_X64",
+        "DUNE_EXIT_ON_FATAL_ERROR"
     }
     
     files
     {
         "%{prj.name}/src/**.h",
         "%{prj.name}/src/**.cpp"
+    }
+
+    includedirs
+    {
+        "Dependencies/SDL2/include",
+        "$(prj.location}"
+    }
+
+    libdirs
+    {
+        "Dependencies/SDL2/lib/x64"
+    }
+
+    links
+    {
+        "SDL2",
+        "SDL2main"
     }
 
     filter "system:windows"
