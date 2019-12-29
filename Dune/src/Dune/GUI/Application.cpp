@@ -1,5 +1,5 @@
 #include "Application.h"
-#include "Logging/Basic.h"
+#include "Dune/Logging/Basic.h"
 
 namespace Dune
 {

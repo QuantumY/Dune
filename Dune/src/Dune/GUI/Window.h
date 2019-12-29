@@ -4,10 +4,9 @@
 #include <SDL.h>
 #include <string>
 
-#include "Logging/Basic.h"
+#include "Dune/Logging/Basic.h"
 
 #define DUNE_WINDOW_CENTERED    SDL_WINDOWPOS_CENTERED
-#define DUNE_WINDOW_CENTERED_XY DUNE_WINDOW_CENTERED, DUNE_WINDOW_CENTERED
 
 namespace Dune
 {
@@ -21,7 +20,7 @@ namespace Dune
 	//
 	//Aliases of SDL window flags. Use bitwize OR (|) to use multiple flags. 
 	//!INCOMPLETE
-	typedef enum WindowFlags
+	enum WindowFlags
 	{
 		Resizable = SDL_WINDOW_RESIZABLE,
 		Shown = SDL_WINDOW_SHOWN,

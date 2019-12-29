@@ -340,8 +340,8 @@ MigrationBackup/
 
 #Additions
 
-bin-int/
-bin/windows-Debug-x86_64/Test/Test.exe
+obj/
+bin/
 
 #Windows/Visual Studio
 *.sln

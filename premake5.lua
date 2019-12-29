@@ -19,7 +19,7 @@ project "Test"
     language "C++"
 
     targetdir ("bin/%{cfg.system}-%{cfg.buildcfg}-%{cfg.architecture}/%{prj.name}")
-	objdir ("bin-int/%{cfg.system}-%{cfg.buildcfg}-%{cfg.architecture}/%{prj.name}")
+	objdir ("obj/%{cfg.system}-%{cfg.buildcfg}-%{cfg.architecture}/%{prj.name}")
 
     files
     {
@@ -30,6 +30,7 @@ project "Test"
     includedirs
     {
         "Dune/src",
+        "%{prj.location}/src/",
         "Dependencies/SDL2/include"
     }
 
@@ -43,6 +44,11 @@ project "Test"
         "Dune",
         "SDL2",
         "SDL2main"
+    }
+
+    postbuildcommands 
+    {
+        "{COPY} %{wks.location}/Dependencies/SDL2/lib/x64/SDL2.dll %{wks.location}/bin/%{cfg.system}-%{cfg.buildcfg}-%{cfg.architecture}/%{prj.name}"
     }
 
     filter "configurations:Debug"
@@ -61,7 +67,7 @@ project "Dune"
     language "C++"
 
     targetdir ("bin/%{cfg.system}-%{cfg.buildcfg}-%{cfg.architecture}/%{prj.name}")
-	objdir ("bin-int/%{cfg.system}-%{cfg.buildcfg}-%{cfg.architecture}/%{prj.name}")
+	objdir ("obj/%{cfg.system}-%{cfg.buildcfg}-%{cfg.architecture}/%{prj.name}")
 
     defines
     {
@@ -79,7 +85,7 @@ project "Dune"
     includedirs
     {
         "Dependencies/SDL2/include",
-        "$(prj.location}"
+        "%{prj.location}/src/"
     }
 
     libdirs
