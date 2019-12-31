@@ -14,6 +14,8 @@ namespace Dune
 		Quit = 0x01		//has already been quit
 	};
 
+	//Always create an instance of this before you do any other Dune related stuff.
+	//This initializes SDL for graphics rendering
 	class Application
 	{
 	private:
@@ -22,9 +24,9 @@ namespace Dune
 
 		void Quit();
 	public:
-		//
 		//Create the application (with a name)
 		Application(std::string name);
+
 		~Application();
 	};
 }

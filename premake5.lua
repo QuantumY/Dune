@@ -27,6 +27,12 @@ project "Test"
         "%{prj.name}/src/**.h",
         "%{prj.name}/src/**.cpp"
     }
+    
+    exlucdes
+    {
+        "Dune/src/Dune/GUI/Widget.h",
+        "Dune/src/Dune/GUI/Widget.cpp" 
+    }
 
     includedirs
     {

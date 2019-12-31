@@ -5,5 +5,6 @@
 
 #include "Dune/Application.h"
 #include "Dune/GUI/Window.h"
+//#include "Dune/GUI/Canvas.h"
 
 #endif /* DUNE_H */
