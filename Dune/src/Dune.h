@@ -6,8 +6,7 @@
 #include "Dune/Application.h"
 
 //GUI headers
-#include "Dune/GUI/Window.h"
-//#include "Dune/GUI/Canvas.h"
+//#include "Dune/GUI/Canvas.h" FIX ME
 
 //General headers
 #include "Dune/General/Color.h"
