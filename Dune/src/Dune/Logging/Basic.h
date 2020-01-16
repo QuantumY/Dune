@@ -1,9 +1,13 @@
 #ifndef DUNE_LOGGING_BASIC_H
 #define DUNE_LOGGING_BASIC_H
 
-#ifdef DUNE_VS2019
+#ifdef DUNE_VS2019 
+#ifndef DUNE_EXIT_ON_FATAL_ERROR
+
 //For __debugbreak()
 #include <intrin.h>
+
+#endif /* DUNE_EXIT_ON_FATAL_ERROR */
 #endif /* DUNE_VS2019 */
 
 #include <cstdlib>

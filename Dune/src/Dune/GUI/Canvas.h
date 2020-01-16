@@ -4,7 +4,7 @@
 #include <SDL.h>
 
 #include "Window.h"
-#include "Dune/General/Color.h"
+#include "Dune/Graphics/Color.h"
 
 namespace Dune
 {

@@ -1,6 +1,6 @@
 --[[
     Premake file for Premake5 (https://github.com/premake/premake-core). 
-    This file (and many inside Dune) has been configured only to work with 32-bit.
+    This file (and many inside Dune) have been configured only to work with 64-bit Windows.
 --]]
 
 workspace "Dune"
@@ -27,11 +27,10 @@ project "Test"
         "%{prj.name}/src/**.h",
         "%{prj.name}/src/**.cpp"
     }
-    
+
     excludes
     {
         "Dune/src/Dune/GUI/Widget.h",
-        "Dune/src/Dune/GUI/Widget.cpp",
         "Dune/src/Dune/GUI/Canvas.h",
         "Dune/src/Dune/GUI/Canvas.cpp" 
     }
@@ -40,7 +39,8 @@ project "Test"
     {
         "Dune/src",
         "%{prj.location}/src/",
-        "Dependencies/SDL2/include"
+        "Dependencies/SDL2/include",
+        "Dependencies/SDL2_gfx/src"
     }
 
     libdirs
@@ -50,9 +50,10 @@ project "Test"
 
     links
     {
-        "Dune",
         "SDL2",
-        "SDL2main"
+        "SDL2main",
+        "SDL2_gfx",
+        "Dune"
     }
 
     postbuildcommands 
@@ -90,10 +91,19 @@ project "Dune"
         "%{prj.name}/src/**.cpp"
     }
 
+    excludes
+    {
+        "Dune/src/Dune/GUI/Widget.h",
+        "Dune/src/Dune/GUI/Widget.cpp",
+        "Dune/src/Dune/GUI/Canvas.h",
+        "Dune/src/Dune/GUI/Canvas.cpp" 
+    }
+
     includedirs
     {
         "Dependencies/SDL2/include",
-        "%{prj.location}/src/"
+        "%{prj.location}/src/",
+        "Dependencies/SDL2_gfx/src/"
     }
 
     libdirs
@@ -104,7 +114,8 @@ project "Dune"
     links
     {
         "SDL2",
-        "SDL2main"
+        "SDL2main",
+        "SDL2_gfx"
     }
 
     filter "system:windows"
@@ -133,6 +144,13 @@ project "Dune"
         symbols "On"
 
     filter "configurations:Release"
-        defines "DUNE_RELEASE"
+        defines 
+        {
+            "DUNE_RELEASE",
+            "DUNE_EXIT_ON_FATAL_ERROR"
+        }
         runtime "Release"
         optimize "On"
+
+group "Dependencies"
+    include "Dependencies/SDL2_gfx/"

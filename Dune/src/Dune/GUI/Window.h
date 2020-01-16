@@ -3,8 +3,10 @@
 
 #include <SDL.h>
 #include <string>
+#include <utility>
 
 #include "Dune/Logging/Basic.h"
+#include "Dune/Graphics/Rectangle.h"
 //#include "Canvas.h"
 
 #define DUNE_WINDOW_CENTERED SDL_WINDOWPOS_CENTERED
@@ -13,14 +15,6 @@
 
 namespace Dune
 {
-	//Data for settings up/storing the data of the window. 
-	struct WindowProps
-	{
-		std::string title;
-		uint32_t x, y;
-		uint32_t width, height;
-	};
-
 	//Aliases of SDL window flags. Use bitwize OR (|) to use multiple flags. 
 	//!INCOMPLETE
 	enum WindowFlags
@@ -29,9 +23,12 @@ namespace Dune
 		Shown = SDL_WINDOW_SHOWN,
 		Hidden = SDL_WINDOW_HIDDEN,
 		Borderless = SDL_WINDOW_BORDERLESS,
+		//special flag
 		Minimized = SDL_WINDOW_MINIMIZED,
+		//special flag
 		Maximized = SDL_WINDOW_MAXIMIZED,
 		//proper fullscreen mode
+		//special flag
 		Fullscreen = SDL_WINDOW_FULLSCREEN,
 		//Desktop = SDL_WINDOW_FULLSCREEN_DESKTOP,
 		Popup = SDL_WINDOW_POPUP_MENU,
@@ -43,11 +40,13 @@ namespace Dune
 	{
 		//friend Dune::Canvas;
 	private:
-		WindowProps m_props;
+		std::string m_title;
+		Rectangle m_rectangle;
 		SDL_Window* m_window;
 	public:
 
-		//Create the window in the center of the screen with certain flags.
+		//!INCOMPLETE: This function is a work in progress
+		//Create the window in the center of the screen with special flags.
 		//Use this to create a fullscreen window using WindowFlags::Fullscreen
 		Window(std::string title, uint32_t flags = WindowFlags::Default);
 
@@ -61,24 +60,29 @@ namespace Dune
 		//Do not use this method to create a fullscreen window
 		Window(std::string title, uint32_t x, uint32_t y, uint32_t width, 
 			uint32_t height, uint32_t flags = WindowFlags::Default);
-		
-		//Create the window using a WindowProps object
-		Window(WindowProps props, uint32_t flags = WindowFlags::Default);
+
+		//Create the window based off an already created SDL_Window (pointer)
+		Window(SDL_Window* window);
 
 		//Show the window (if hidden)
-		void ShowWindow();
+		void showWindow();
 		
 		//Hide the window
-		void HideWindow();
+		void hideWindow();
 
-		//Returns the SDL_Window
-		SDL_Window* GetSDL_Window();
+		//Returns a pointer to the SDL_Window
+		inline SDL_Window* getSDL_Window();
 		
-		//Returns a copy of m_props
-		WindowProps GetWindowProps();
+		//Set the window title
+		void setTitle(std::string title);
+
+		inline std::string getTitle();
+
+		//Get the window width and height
+		inline Rectangle getDimensions();
 
 		//Make the window fullscreen
-		void MakeWindowFullscreen();
+		void setFullscreen();
 
 		~Window();
 	};

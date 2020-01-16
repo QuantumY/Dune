@@ -2,79 +2,109 @@
 
 namespace Dune
 {
+	//!INCOMPLETE: ... Untested
 	//!INCOMPLETE: Does get proper window width, height, or position unless going into fullscreen
 	Window::Window(std::string title, uint32_t flags)
-		:m_props({ title, 0, 0, 0, 0 })
+		:m_title(title)
 	{
-
-		m_window = SDL_CreateWindow(m_props.title.c_str(), m_props.x, m_props.y,
-			m_props.width, m_props.height, flags);
+		m_rectangle.x, m_rectangle.y = DUNE_WINDOW_CENTERED;
 
 		//check if window should be fullscreen
 		if (flags &= WindowFlags::Fullscreen)
-			//This is the method that makes the window fullscreen
-			MakeWindowFullscreen();
+		{
+			//Get display info
+			SDL_DisplayMode DM;
+			SDL_GetCurrentDisplayMode(0, &DM);
+
+			//Set the correct width and height
+			m_rectangle.width = DM.w;
+			m_rectangle.height = DM.h;
+		}
+
+		m_window = SDL_CreateWindow(m_title.c_str(), 0, 0, m_rectangle.width, 
+			m_rectangle.height, flags);
 	}
 
 	Window::Window(std::string title, uint32_t width, uint32_t height, 
 		uint32_t flags)
-		:m_props({ title, DUNE_WINDOW_CENTERED, DUNE_WINDOW_CENTERED, width, height })
+		//replace the name, width and height with the local ones
+		:m_title(title), m_rectangle(width, height)
 	{
-		m_window = SDL_CreateWindow(m_props.title.c_str(), m_props.x, m_props.y,
-			m_props.width, m_props.height, flags);
+		m_rectangle.x, m_rectangle.y = DUNE_WINDOW_CENTERED;
+
+		m_window = SDL_CreateWindow(m_title.c_str(), m_rectangle.x, m_rectangle.y,
+			m_rectangle.width, m_rectangle.height, flags);
 	}
 
 	Window::Window(std::string title, uint32_t x, uint32_t y, uint32_t width, uint32_t height, 
 		uint32_t flags)
-		: m_props({ title, x, y, width, height })
+		//replace the some of the window data with the local ones
+		:m_title(title), m_rectangle(width, height, x, y)
 	{
-		m_window = SDL_CreateWindow(m_props.title.c_str(), m_props.x, m_props.y,
-			m_props.width, m_props.height, flags);
+		m_window = SDL_CreateWindow(m_title.c_str(), m_rectangle.x, m_rectangle.y,
+			m_rectangle.width, m_rectangle.height, flags);
 	}
 
-	Window::Window(WindowProps props, uint32_t flags)
-		:m_props(props)
+	Window::Window(SDL_Window* window)
+		:m_window(window)
 	{
-		m_window = SDL_CreateWindow(m_props.title.c_str(), m_props.x, m_props.y,
-			m_props.width, m_props.height, flags);
+		//get te window title using a member function
+		m_title = getTitle();
+
 	}
 
-	void Window::ShowWindow()
+	void Window::showWindow()
 	{
 		//If the window is already shown, this shouldn't do anything
 		SDL_ShowWindow(m_window);
-		DUNE_BASIC_LOG("The window has been shown.");
+		DUNE_VA_LOG("The window %s has been shown.", m_title.c_str());
 	}
 
-	void Window::HideWindow()
+	void Window::hideWindow()
 	{
 		//If the window is already hidden, this shouldn't do anything
 		SDL_HideWindow(m_window);
-		DUNE_BASIC_LOG("The window has been hidden.");
+		DUNE_VA_LOG("The window %s been hidden.", m_title.c_str());
 	}
 
-	WindowProps Window::GetWindowProps()
-	{
-		return m_props;
-	}
-
-	SDL_Window* Window::GetSDL_Window()
+	inline SDL_Window* Window::getSDL_Window()
 	{
 		return m_window;
 	}
 
-	void Window::MakeWindowFullscreen()
+	void Window::setTitle(std::string title)
+	{
+		//set the member variable to the new title
+		m_title = title;
+
+		//actually change the title of the window
+		SDL_SetWindowTitle(m_window, m_title.c_str());
+	}
+
+	inline std::string Window::getTitle()
+	{
+		return m_title;
+	}
+
+	inline Rectangle Window::getDimensions()
+	{
+		return m_rectangle;
+	}
+
+	void Window::setFullscreen()
 	{
 		//Get display info
 		SDL_DisplayMode DM;
 		SDL_GetCurrentDisplayMode(0, &DM);
 
 		//Set the correct width and height
-		m_props.width = uint32_t(DM.w);
-		m_props.height = uint32_t(DM.h);
+		m_rectangle.width = uint32_t(DM.w);
+		m_rectangle.height = uint32_t(DM.h);
 
 		//Make the window fullscreen
 		SDL_SetWindowFullscreen(m_window, SDL_WINDOW_FULLSCREEN);
+
+		DUNE_VA_LOG("The window %s has been made fullscreen", m_title.c_str());
 	}
 
 	Window::~Window()
