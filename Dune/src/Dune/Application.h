@@ -21,6 +21,7 @@ namespace Dune
 	private:
 		std::string m_name;
 		uint32_t m_status;
+		SDL_Renderer* renderer;
 
 		void Quit();
 	public:
