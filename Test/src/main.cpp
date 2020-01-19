@@ -1,11 +1,3 @@
-/*
-#define DUNE_PLATFORM_WINDOWS
-#define DUNE_PLATFORM_X64
-#define DUNE_COMPILE_STATIC
-#define DUNE_DEBUG
-#define DUNE_EXIT_ON_FATAL_ERROR
-*/
-
 #include "Dune.h"
 #include <SDL2_gfxPrimitives.h>
 
@@ -14,8 +6,8 @@ int main(int argc, char* args[])
 	Dune::Application app("My App");
 	Dune::Window window("My Window", Dune::WindowFlags::Fullscreen);
 
-	Dune::Rectangle dimensions = window.getDimensions();
-	SDL_Window* win_ptr = window.getSDL_Window();
+	Dune::Rectangle dimensions = window.GetDimensions();
+	SDL_Window* win_ptr = window.GetSDL_Window();
 
 	SDL_Rect rect;
 	rect.w = 1000;

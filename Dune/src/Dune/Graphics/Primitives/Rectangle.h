@@ -1,10 +1,10 @@
-#ifndef DUNE_GRAPHICS_RECTANGLE_H
-#define DUNE_GRAPHICS_RECTANGLE_H
+#ifndef DUNE_GRAPHICS_PRIMITIVES_RECTANGLE_H
+#define DUNE_GRAPHICS_PRIMITIVES_RECTANGLE_H
 
 #include <SDL.h>
 #include <stdint.h>
 
-#include "Color.h"
+#include "Dune/Graphics/Color.h"
 
 namespace Dune
 {
@@ -43,4 +43,4 @@ namespace Dune
 	};
 }
 
-#endif /* DUNE_GRAPHICS_RECTANGLE_H */
+#endif /* DUNE_GRAPHICS_PRIMITIVES_RECTANGLE_H */

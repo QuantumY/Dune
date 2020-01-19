@@ -3,18 +3,15 @@
 
 #define WIN32_LEAN_AND_MEAN	// Exclude rarely-used stuff from Windows headers
 
-#include "Dune/Application.h"
-
-//GUI headers
-#include "Dune/GUI/Window.h"
-//#include "Dune/GUI/Canvas.h"
-//#include "Dune/GUI/Widget.h"
-
 //General headers
 #include "Dune/General/Utilities.h"
+#include "Dune/General/Application.h"
 
 //Graphics headers
 #include "Dune/Graphics/Color.h"
-#include "Dune/Graphics/Rectangle.h"
+#include "Dune/Graphics/Primitives/Rectangle.h"
+
+//GUI headers
+#include "Dune/GUI/Window.h"
 
 #endif /* DUNE_H */

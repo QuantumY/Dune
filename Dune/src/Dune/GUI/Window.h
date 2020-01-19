@@ -6,7 +6,7 @@
 #include <utility>
 
 #include "Dune/Logging/Basic.h"
-#include "Dune/Graphics/Rectangle.h"
+#include "Dune/Graphics/Primitives/Rectangle.h"
 //#include "Canvas.h"
 
 #define DUNE_WINDOW_CENTERED SDL_WINDOWPOS_CENTERED
@@ -65,24 +65,27 @@ namespace Dune
 		Window(SDL_Window* window);
 
 		//Show the window (if hidden)
-		void showWindow();
+		void ShowWindow();
 		
 		//Hide the window
-		void hideWindow();
+		void HideWindow();
 
 		//Returns a pointer to the SDL_Window
-		inline SDL_Window* getSDL_Window();
+		inline SDL_Window* GetSDL_Window();
 		
 		//Set the window title
-		void setTitle(std::string title);
+		void SetTitle(std::string title);
 
-		inline std::string getTitle();
+		inline std::string GetTitle();
 
 		//Get the window width and height
-		inline Rectangle getDimensions();
+		inline Rectangle GetDimensions();
 
 		//Make the window fullscreen
-		void setFullscreen();
+		void SetFullscreen();
+
+		//Close the window.
+		void Close();
 
 		~Window();
 	};

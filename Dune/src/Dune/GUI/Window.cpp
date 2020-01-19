@@ -49,30 +49,30 @@ namespace Dune
 		:m_window(window)
 	{
 		//get te window title using a member function
-		m_title = getTitle();
+		m_title = GetTitle();
 
 	}
 
-	void Window::showWindow()
+	void Window::ShowWindow()
 	{
 		//If the window is already shown, this shouldn't do anything
 		SDL_ShowWindow(m_window);
 		DUNE_VA_LOG("The window %s has been shown.", m_title.c_str());
 	}
 
-	void Window::hideWindow()
+	void Window::HideWindow()
 	{
 		//If the window is already hidden, this shouldn't do anything
 		SDL_HideWindow(m_window);
 		DUNE_VA_LOG("The window %s been hidden.", m_title.c_str());
 	}
 
-	inline SDL_Window* Window::getSDL_Window()
+	inline SDL_Window* Window::GetSDL_Window()
 	{
 		return m_window;
 	}
 
-	void Window::setTitle(std::string title)
+	void Window::SetTitle(std::string title)
 	{
 		//set the member variable to the new title
 		m_title = title;
@@ -81,17 +81,17 @@ namespace Dune
 		SDL_SetWindowTitle(m_window, m_title.c_str());
 	}
 
-	inline std::string Window::getTitle()
+	inline std::string Window::GetTitle()
 	{
 		return m_title;
 	}
 
-	inline Rectangle Window::getDimensions()
+	inline Rectangle Window::GetDimensions()
 	{
 		return m_rectangle;
 	}
 
-	void Window::setFullscreen()
+	void Window::SetFullscreen()
 	{
 		//Get display info
 		SDL_DisplayMode DM;
@@ -107,8 +107,14 @@ namespace Dune
 		DUNE_VA_LOG("The window %s has been made fullscreen", m_title.c_str());
 	}
 
-	Window::~Window()
+	void Window::Close()
 	{
 		SDL_DestroyWindow(m_window);
+		DUNE_VA_LOG("Window \"%s\" Closed", m_title.c_str());
+	}
+
+	Window::~Window()
+	{
+		Close();
 	}
 }

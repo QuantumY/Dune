@@ -14,6 +14,11 @@ workspace "Dune"
         "Release"
     }
 
+group "Dependencies"
+    include "Dependencies/SDL2_gfx/"
+
+group ""
+
 project "Test"
     location "Test"
     kind "ConsoleApp"
@@ -28,19 +33,12 @@ project "Test"
         "%{prj.name}/src/**.cpp"
     }
 
-    excludes
-    {
-        "Dune/src/Dune/GUI/Widget.h",
-        "Dune/src/Dune/GUI/Canvas.h",
-        "Dune/src/Dune/GUI/Canvas.cpp" 
-    }
-
     includedirs
     {
-        "Dune/src",
+        "%{wks.location}/Dune/src/",
         "%{prj.location}/src/",
-        "Dependencies/SDL2/include",
-        "Dependencies/SDL2_gfx/src"
+        "Dependencies/SDL2/include/",
+        "Dependencies/SDL2_gfx/src/"
     }
 
     libdirs
@@ -50,10 +48,10 @@ project "Test"
 
     links
     {
+        "Dune",
         "SDL2",
         "SDL2main",
-        "SDL2_gfx",
-        "Dune"
+        "SDL_gfx"
     }
 
     postbuildcommands 
@@ -93,17 +91,16 @@ project "Dune"
 
     excludes
     {
-        "Dune/src/Dune/GUI/Widget.h",
-        "Dune/src/Dune/GUI/Widget.cpp",
-        "Dune/src/Dune/GUI/Canvas.h",
-        "Dune/src/Dune/GUI/Canvas.cpp" 
+        "%{prj.name}/src/Dune/GUI/Canvas.h",
+        "%{prj.name}/src/Dune/GUI/Canvas.cpp",
+        "%{prj.name}/src/Dune/GUI/Widget.h"
     }
 
     includedirs
     {
         "Dependencies/SDL2/include",
         "%{prj.location}/src/",
-        "Dependencies/SDL2_gfx/src/"
+        "Dependencies/SDL2_gfx/src"
     }
 
     libdirs
@@ -144,13 +141,6 @@ project "Dune"
         symbols "On"
 
     filter "configurations:Release"
-        defines 
-        {
-            "DUNE_RELEASE",
-            "DUNE_EXIT_ON_FATAL_ERROR"
-        }
+        defines "DUNE_RELEASE"
         runtime "Release"
         optimize "On"
-
-group "Dependencies"
-    include "Dependencies/SDL2_gfx/"

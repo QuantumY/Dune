@@ -1,5 +1,5 @@
-#ifndef DUNE_APPLICATION_H
-#define DUNE_APPLICATION_H
+#ifndef DUNE_GENERAL_APPLICATION_H
+#define DUNE_GENERAL_APPLICATION_H
 
 #include <SDL.h>
 #include <string>
@@ -31,4 +31,4 @@ namespace Dune
 	};
 }
 
-#endif /* DUNE_APPLICATION_H */
+#endif /* DUNE_GENERAL_APPLICATION_H */
