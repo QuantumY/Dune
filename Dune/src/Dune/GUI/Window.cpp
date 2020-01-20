@@ -67,11 +67,6 @@ namespace Dune
 		DUNE_VA_LOG("The window %s been hidden.", m_title.c_str());
 	}
 
-	inline SDL_Window* Window::GetSDL_Window()
-	{
-		return m_window;
-	}
-
 	void Window::SetTitle(std::string title)
 	{
 		//set the member variable to the new title
@@ -79,16 +74,6 @@ namespace Dune
 
 		//actually change the title of the window
 		SDL_SetWindowTitle(m_window, m_title.c_str());
-	}
-
-	inline std::string Window::GetTitle()
-	{
-		return m_title;
-	}
-
-	inline Rectangle Window::GetDimensions()
-	{
-		return m_rectangle;
 	}
 
 	void Window::SetFullscreen()

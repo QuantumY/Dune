@@ -51,7 +51,7 @@ project "Test"
         "Dune",
         "SDL2",
         "SDL2main",
-        "SDL_gfx"
+        "SDL2_gfx"
     }
 
     postbuildcommands 

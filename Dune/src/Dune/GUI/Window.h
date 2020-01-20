@@ -71,15 +71,15 @@ namespace Dune
 		void HideWindow();
 
 		//Returns a pointer to the SDL_Window
-		inline SDL_Window* GetSDL_Window();
+		inline SDL_Window* GetSDL_Window() { return m_window; }
 		
 		//Set the window title
 		void SetTitle(std::string title);
 
-		inline std::string GetTitle();
+		std::string GetTitle() { return m_title; }
 
 		//Get the window width and height
-		inline Rectangle GetDimensions();
+		Rectangle GetDimensions() { return m_rectangle; };
 
 		//Make the window fullscreen
 		void SetFullscreen();

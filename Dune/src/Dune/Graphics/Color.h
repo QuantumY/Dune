@@ -3,14 +3,23 @@
 
 #include <stdint.h>
 
+//Create an 32-bit unsigned RGBA value from a Dune::Color
+#define DUNE_RGBA(x) (((x.red   & 0xff) << 32) \
+					+ ((x.green & 0xff) << 16) \
+					+ ((x.blue  & 0xff) <<  8  \
+					+  (x.alpha & 0xff))
+
+//Create a Dune::Color from RGBA values
+#define DUNE_COLOR(r, g, b, a) { r, g, b, a }
+
 namespace Dune
 {
 	typedef struct Color
 	{
-		uint32_t red;
-		uint32_t green;
-		uint32_t blue;
-		uint32_t alpha;
+		uint8_t red;
+		uint8_t green;
+		uint8_t blue;
+		uint8_t alpha;
 	} Color;
 
 	const Color Red   = { 0xff, 0x00, 0x00, 0xff };
