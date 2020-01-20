@@ -14,7 +14,8 @@
 #include "Dune/Application.h"
 
 //GUI headers
-//#include "Dune/GUI/Canvas.h" FIX ME
+#include "Dune/GUI/Window.h"
+//#include "Dune/GUI/Canvas.h"
 
 //General headers
 #include "Dune/General/Color.h"
