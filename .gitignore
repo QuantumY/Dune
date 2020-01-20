@@ -351,9 +351,7 @@ obj/
 
 *.tlog
 
-#Premake stuff
-premake5.bat
-premake.bat
+*.bat
 
 #Mac/XCode
 .DS_Store
